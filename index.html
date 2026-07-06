@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PixelSync Motion Runtime — No Drift Launch</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./films/nodrift-launch/film.css" />
+  </head>
+  <body>
+    <main id="runtime-root" class="runtime-root">
+      <section id="stage" class="stage">
+        <div id="film-layer" class="film-layer"></div>
+      </section>
+
+      <aside class="controls">
+        <button id="play-button" type="button">Play</button>
+        <button id="restart-button" type="button">Restart</button>
+        <span id="time-readout">00:00</span>
+      </aside>
+
+      <audio
+        id="soundtrack"
+        src="./assets/audio/original-soundscape.m4a"
+        preload="auto"
+      ></audio>
+    </main>
+
+    <script type="module" src="./films/nodrift-launch/film.js"></script>
+  </body>
+</html>
