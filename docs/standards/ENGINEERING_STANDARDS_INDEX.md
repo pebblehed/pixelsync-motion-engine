@@ -1,157 +1,117 @@
-# Motion Engine Engineering Standards Index
+# Document Information
+
+| Property       | Value                          |
+| -------------- | ------------------------------ |
+| Document       | ENGINEERING_STANDARDS_INDEX.md |
+| Project        | PixelSync Motion Engine        |
+| Document ID    | PSME-STD-001                   |
+| Version        | 1.0 Foundation                 |
+| Status         | Approved                       |
+| Classification | Standards Index                |
+| Owner          | PixelSync                      |
+| Parent         | PSME-ARC-001                   |
+| Last Updated   | 2026-07-07                     |
 
 ---
 
-Document ID: PSME-STD-001
-
-Version: 0.1 Foundation
-
-Status: Draft
-
-Classification: Standards Index
-
-Owner: PixelSync
-
-Parent: PSME-ARC-001
+# Motion Engine Engineering Standards Index
 
 ---
 
 # 1. Purpose
 
-This document defines the catalogue of engineering standards that govern the implementation of the PixelSync Motion Engine.
+This document defines the catalogue of Engineering Standards that govern the implementation of the PixelSync Motion Engine.
 
-It acts as the master index for all engineering standards within the project.
+It acts as the master index for all Engineering Standards within the project.
 
-Individual standards inherit from the Motion Engine Architecture and ultimately from the PixelSync Cinematic Engineering Constitution.
+Engineering Standards inherit from the Motion Engine Architecture and, through that inheritance chain, from the PixelSync Cinematic Engineering Constitution.
+
+This document defines **which Engineering Standards exist**.
+
+It intentionally does not define their implementation.
 
 ---
 
 # 2. Engineering Philosophy
 
-Engineering Standards define **how** the Motion Engine is implemented.
+Engineering Standards define how individual architectural domains are engineered.
 
-They do not redefine architectural responsibilities or constitutional principles.
+Engineering Standards shall not:
 
-Each standard owns a single engineering domain.
+- Redefine constitutional principles.
+- Redefine architectural responsibilities.
+- Duplicate the responsibilities of another standard.
 
----
-
-# 3. Current Engineering Domains
-
-The Motion Engine currently defines the following engineering domains.
-
-## Story Engineering
-
-Defines narrative structure, progression, pacing and audience understanding.
-
-Status: Planned
+Each Engineering Standard owns a single engineering domain.
 
 ---
 
-## Scene Engineering
+# 3. Engineering Standards Catalogue
 
-Defines scene composition and scene responsibilities.
+The Motion Engine currently defines the following Engineering Standards.
 
-Status: Planned
-
----
-
-## Timeline Engineering
-
-Defines sequencing, orchestration and temporal behaviour.
-
-Status: Planned
-
----
-
-## Motion Engineering
-
-Defines movement, animation behaviour and motion consistency.
-
-Status: Planned
+| Engineering Standard   | Responsibility                                               | Status  |
+| ---------------------- | ------------------------------------------------------------ | ------- |
+| Story Engineering      | Narrative structure, progression and audience understanding. | Planned |
+| Scene Engineering      | Scene composition and narrative responsibility.              | Planned |
+| Timeline Engineering   | Sequencing, orchestration and temporal flow.                 | Planned |
+| Motion Engineering     | Motion behaviour and communication through movement.         | Planned |
+| Camera Engineering     | Framing, movement and audience focus.                        | Planned |
+| Typography Engineering | Textual communication and kinetic typography.                | Planned |
+| Lighting Engineering   | Illumination, atmosphere and visual hierarchy.               | Planned |
+| Colour Engineering     | Colour systems and visual consistency.                       | Planned |
+| Audio Engineering      | Sound design, ambience and synchronisation.                  | Planned |
+| Transition Engineering | Scene transitions and visual continuity.                     | Planned |
+| Component Engineering  | Reusable cinematic engineering components.                   | Planned |
+| Runtime Engineering    | Runtime execution of Motion Engine productions.              | Planned |
+| Rendering Engineering  | Production rendering and output generation.                  | Planned |
 
 ---
 
-## Camera Engineering
+# 4. Standard Lifecycle
 
-Defines cinematic framing, movement and visual attention.
+Every Engineering Standard shall progress through the following lifecycle.
 
-Status: Planned
+```text
+Planned
+        ↓
+Draft
+        ↓
+Approved
+        ↓
+Locked
+        ↓
+Superseded
+```
 
----
+Only Approved standards may become Locked.
 
-## Typography Engineering
-
-Defines textual communication and kinetic typography.
-
-Status: Planned
-
----
-
-## Lighting Engineering
-
-Defines illumination, atmosphere and visual hierarchy.
-
-Status: Planned
+Only Locked standards may be inherited by implementation.
 
 ---
 
-## Colour Engineering
+# 5. Architectural Inheritance
 
-Defines colour systems and visual consistency.
+Every Engineering Standard shall:
 
-Status: Planned
-
----
-
-## Audio Engineering
-
-Defines sound design, ambience and synchronisation.
-
-Status: Planned
+- Inherit from the PixelSync Cinematic Engineering Constitution.
+- Inherit from the Motion Engine Architecture.
+- Inherit from the Motion Engine Domain Model.
+- Possess a single clearly defined responsibility.
+- Avoid overlapping responsibility with other Engineering Standards.
 
 ---
 
-## Transition Engineering
+# 6. Evolution
 
-Defines transitions between scenes and visual states.
+Additional Engineering Standards may be introduced where justified through constitutional governance.
 
-Status: Planned
+Every new standard shall:
 
----
-
-## Component Engineering
-
-Defines reusable cinematic components.
-
-Status: Planned
-
----
-
-## Runtime Engineering
-
-Defines execution of productions.
-
-Status: Planned
-
----
-
-## Rendering Engineering
-
-Defines rendering pipelines and production output.
-
-Status: Planned
-
----
-
-# 4. Evolution
-
-Additional standards may be introduced as the Motion Engine evolves.
-
-Every new standard shall inherit from:
-
-- PixelSync Cinematic Engineering Constitution
-- Motion Engine Architecture
+- Possess a clearly defined responsibility.
+- Integrate into the existing architectural model.
+- Avoid duplication.
+- Maintain traceability throughout the Motion Engine.
 
 ---
 
@@ -161,8 +121,8 @@ End of Document
 
 Document ID: PSME-STD-001
 
-Version: 0.1 Foundation
+Version: 1.0 Foundation
 
-Status: Draft
+Status: Approved
 
 ---

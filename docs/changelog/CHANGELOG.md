@@ -1,56 +1,66 @@
+# Document Information
+
+| Property       | Value                   |
+| -------------- | ----------------------- |
+| Document       | CHANGELOG.md            |
+| Project        | PixelSync Motion Engine |
+| Document ID    | PSME-LOG-001            |
+| Version        | 1.0 Foundation          |
+| Status         | Approved                |
+| Classification | Project Changelog       |
+| Owner          | PixelSync               |
+| Last Updated   | 2026-07-07              |
+
+---
+
 # PixelSync Motion Engine Changelog
 
 ---
 
-Document ID: PSME-LOG-001
-
-Version: 0.1 Foundation
-
-Status: Active
-
-Classification: Project Changelog
-
-Owner: PixelSync
-
----
-
-# Purpose
+# 1. Purpose
 
 This document records the evolution of the PixelSync Motion Engine.
 
-It provides a chronological history of significant changes to the project, including governance, architecture, standards, implementation, and production milestones.
+It provides a chronological history of significant engineering milestones throughout the lifetime of the project.
 
-Only meaningful project milestones should be recorded.
+The changelog records completed changes only.
 
-Minor edits, formatting changes, and typographical corrections should not normally be included.
+Planned work, design discussions, and proposed changes are intentionally excluded.
 
 ---
 
-# Changelog
+# 2. Changelog
 
-## Version 0.1 Foundation
+## Version 1.0 Foundation
 
-**Date:** 2026-07-06
+**Date:** 2026-07-07
 
 ### Repository
 
-- Established the PixelSync Motion Engine project.
+- Established the PixelSync Motion Engine repository.
 - Defined the initial repository structure.
-- Preserved the existing prototype as the engineering baseline.
 
-### Governance
+### Constitutional Foundation
 
-- Created the project README.
-- Created the PixelSync Cinematic Engineering Constitution.
-- Created the Motion Engine Architecture.
-- Created the Engineering Standards Index.
+- Approved the project README.
+- Approved the PixelSync Cinematic Engineering Constitution.
+- Approved the Motion Engine Architecture.
+- Approved the Motion Engine Domain Model.
+- Approved the Engineering Standards Index.
 - Established the constitutional documentation hierarchy.
+
+### Methodology
+
+- Adopted the PixelSync Methodology as the governing engineering process.
+- Established constitutional inheritance across all documentation.
+- Established document review, approval, locking, and version control workflow.
+- Adopted traceability and single-responsibility principles for all engineering artefacts.
 
 ### Status
 
-Foundation documentation established.
+Foundation documentation approved.
 
-Project ready for Git initialisation and Version 0.1 baseline commit.
+The Motion Engine is now governed by a constitutional engineering framework and is ready for the first locked engineering baseline.
 
 ---
 
@@ -60,8 +70,8 @@ End of Document
 
 Document ID: PSME-LOG-001
 
-Version: 0.1 Foundation
+Version: 1.0 Foundation
 
-Status: Active
+Status: Approved
 
 ---

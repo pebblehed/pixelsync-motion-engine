@@ -1,11 +1,15 @@
-## version
+# Document Information
 
-Document: README.md
-Project: PixelSync Motion Engine
-Version: 0.1 Foundation
-Status: Draft
-Classification: Project Overview
-Last Updated: 2026-07-06
+| Property       | Value                   |
+| -------------- | ----------------------- |
+| Document       | README.md               |
+| Project        | PixelSync Motion Engine |
+| Document ID    | PSME-README-001         |
+| Version        | 1.0 Foundation          |
+| Status         | Approved                |
+| Classification | Project Overview        |
+| Owner          | PixelSync               |
+| Last Updated   | 2026-07-07              |
 
 ---
 
@@ -15,11 +19,11 @@ Last Updated: 2026-07-06
 
 ---
 
-## Mission
+# Mission
 
-PixelSync Motion Engine is an engineering platform for creating premium cinematic product storytelling through reusable, governed components rather than manual animation.
+PixelSync Motion Engine is an engineering platform for creating premium cinematic product storytelling through governed principles, reusable components, and programmable systems.
 
-The project transforms motion design into an engineering discipline by combining constitutional governance, reusable motion components, narrative systems, and programmable rendering.
+The project transforms motion design into an engineering discipline through constitutional governance, reusable engineering assets, structured narrative systems, and programmable execution.
 
 The objective is not simply to create motion.
 
@@ -27,15 +31,15 @@ The objective is to engineer understanding.
 
 ---
 
-## Vision
+# Vision
 
-To become the engineering platform that powers consistent, high-quality cinematic communication across every PixelSync product.
+To become the engineering platform that powers consistent, high-quality cinematic communication across the entire PixelSync ecosystem.
 
-Rather than rebuilding launch films from scratch, Motion Engine enables creators to compose productions from governed story structures, reusable components, and engineering standards.
+Rather than recreating launch films and presentations from scratch, Motion Engine enables productions to be engineered from governed story structures, reusable components, engineering standards, and runtime systems.
 
 ---
 
-## Core Engineering Philosophy
+# Core Engineering Philosophy
 
 Every frame communicates.
 
@@ -49,7 +53,7 @@ Engineering precedes implementation.
 
 ---
 
-## Repository Structure
+# Repository Structure
 
 ```text
 docs/
@@ -67,58 +71,49 @@ assets/
 
 ---
 
-## Current Status
+# Current Status
 
-Current Phase
-
-**Foundation**
-
-Current Objective
-
-Establish the constitutional and architectural foundations before expanding the runtime.
+| Property  | Value                                                                                                 |
+| --------- | ----------------------------------------------------------------------------------------------------- |
+| Phase     | Foundation                                                                                            |
+| Objective | Establish the constitutional, architectural and engineering foundations before expanding the runtime. |
 
 ---
 
-## Documentation
+# Documentation Hierarchy
 
-The documentation hierarchy follows the PixelSync engineering model.
+The Motion Engine follows the PixelSync constitutional engineering model.
 
-```
+```text
 Constitution
-
-↓
-
+        ↓
 Architecture
-
-↓
-
-Standards
-
-↓
-
+        ↓
+Engineering Standards
+        ↓
 Implementation
-
-↓
-
+        ↓
 Productions
 ```
 
----
-
-## Long-Term Vision
-
-The Motion Engine will evolve into a programmable cinematic production platform capable of assembling launch films, demonstrations, interactive presentations, and future visual experiences from governed engineering principles.
+Each layer inherits from the layer above it.
 
 ---
 
-## Project Status
+# Long-Term Vision
 
-Version
+PixelSync Motion Engine will evolve into a programmable cinematic engineering platform capable of assembling launch films, demonstrations, presentations, interactive experiences, and future communication systems through governed engineering principles.
 
-**0.1 Foundation**
+---
 
-Status
+---
 
-**Engineering Foundation**
+End of Document
+
+Document ID: PSME-README-001
+
+Version: 1.0 Foundation
+
+Status: Approved
 
 ---

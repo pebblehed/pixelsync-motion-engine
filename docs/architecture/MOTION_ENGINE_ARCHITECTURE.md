@@ -1,18 +1,20 @@
-# Motion Engine Architecture
+# Document Information
+
+| Property       | Value                         |
+| -------------- | ----------------------------- |
+| Document       | MOTION_ENGINE_ARCHITECTURE.md |
+| Project        | PixelSync Motion Engine       |
+| Document ID    | PSME-ARC-001                  |
+| Version        | 1.0 Foundation                |
+| Status         | Approved                      |
+| Classification | Architecture                  |
+| Owner          | PixelSync                     |
+| Parent         | PSME-CON-001                  |
+| Last Updated   | 2026-07-07                    |
 
 ---
 
-Document ID: PSME-ARC-001
-
-Version: 0.1 Foundation
-
-Status: Draft
-
-Classification: Architecture
-
-Owner: PixelSync
-
-Parent: PSME-CON-001
+# Motion Engine Architecture
 
 ---
 
@@ -20,39 +22,44 @@ Parent: PSME-CON-001
 
 This document defines the high-level architecture of the PixelSync Motion Engine.
 
-It establishes the major subsystems of the engine and the relationships between them. It provides the structural blueprint from which implementation, engineering standards, and future capabilities shall be developed.
+It establishes the architectural structure of the Motion Engine together with the responsibilities and relationships of its major engineering domains.
 
-This document intentionally avoids implementation details. Those belong within the Engineering Standards and Runtime documentation.
+This document intentionally defines architecture rather than implementation.
+
+Implementation details belong within the Engineering Standards and Runtime implementation.
 
 ---
 
 # 2. Architectural Vision
 
-The PixelSync Motion Engine is designed as a modular cinematic engineering platform.
+The PixelSync Motion Engine is a modular cinematic engineering platform.
 
-Rather than creating isolated animations, the engine assembles complete cinematic experiences from governed components that work together through a defined architectural model.
+Rather than creating isolated animations, the Motion Engine assembles complete cinematic experiences from governed engineering domains operating within a constitutional architecture.
 
-Each subsystem has a single responsibility and communicates with the rest of the engine through clearly defined interfaces.
+Every architectural domain has a clearly defined responsibility.
+
+Architectural domains collaborate through governed relationships rather than overlapping responsibilities.
 
 ---
 
 # 3. Architectural Principles
 
-The Motion Engine architecture is governed by the following principles:
+The Motion Engine architecture is governed by the following principles.
 
+- Constitutional inheritance.
 - Modular by design.
 - Composition before duplication.
-- Reusable components before bespoke implementations.
-- Separation of responsibility.
+- Single responsibility.
 - Governed evolution.
-- Technology independent architecture.
-- Architecture precedes implementation.
+- Technology-independent architecture.
+- Architecture before implementation.
+- Traceable engineering relationships.
 
 ---
 
 # 4. System Layers
 
-The Motion Engine is organised into layered responsibilities.
+The Motion Engine is organised into constitutional layers of responsibility.
 
 ```text
 Constitution
@@ -61,73 +68,97 @@ Architecture
         ↓
 Engineering Standards
         ↓
-Engine Runtime
+Implementation
+        ↓
+Runtime
         ↓
 Productions
 ```
 
 Each layer inherits from the layer above it.
 
-No lower layer shall redefine responsibilities established by a higher layer.
+Lower layers shall not redefine the responsibilities established by higher layers.
 
 ---
 
-# 5. Core Engine Components
+# 5. Architectural Domains
 
-The Motion Engine is composed of independent engineering domains.
+The Motion Engine is organised into a collection of architectural domains.
 
-Current architectural components include:
+Each domain owns a clearly defined engineering responsibility.
 
-- Story Engine
-- Scene Engine
-- Timeline Engine
-- Animation Engine
-- Camera Engine
-- Typography Engine
-- Lighting Engine
-- Audio Engine
-- Transition Engine
-- Component Library
+Current architectural domains include:
+
+- Story
+- Scene
+- Timeline
+- Motion
+- Camera
+- Typography
+- Lighting
+- Audio
+- Transition
+- Components
 - Runtime
-- Renderer
+- Rendering
 
-Additional components may be introduced provided they conform to the governing architecture.
+Additional domains may be introduced through constitutional governance where required.
 
 ---
 
-# 6. Production Pipeline
+# 6. Architectural Flow
 
-Every production follows the same engineering pipeline.
+The current architectural model proposes the following logical engineering flow.
 
 ```text
-Story
-    ↓
-Scenes
-    ↓
-Timeline
-    ↓
-Components
-    ↓
-Animation
-    ↓
-Rendering
-    ↓
 Production
+        ↓
+Story
+        ↓
+Scene
+        ↓
+Sequence
+        ↓
+Component
+        ↓
+Behaviour
+        ↓
+Runtime
+        ↓
+Rendered Output
 ```
 
-The pipeline represents the logical flow of responsibility rather than implementation order.
+This represents the current architectural understanding of the Motion Engine.
+
+As the Motion Engine evolves, this model may be refined through constitutional governance.
 
 ---
 
 # 7. Architectural Governance
 
-Architectural decisions shall always remain subordinate to the PixelSync Cinematic Engineering Constitution.
+The Motion Engine Architecture inherits directly from the PixelSync Cinematic Engineering Constitution.
 
-Engineering Standards shall inherit from this architecture.
+All Engineering Standards inherit from this Architecture.
 
-Implementation shall inherit from the Engineering Standards.
+Implementation inherits from the Engineering Standards.
 
-No implementation shall bypass the architectural model defined within this document.
+Runtime execution implements the responsibilities defined by the Architecture.
+
+No implementation shall bypass or contradict the architectural model defined within this document.
+
+---
+
+# 8. Architectural Traceability
+
+Every architectural domain shall possess:
+
+- A single clearly defined responsibility.
+- A governing parent.
+- Clearly defined child responsibilities.
+- Explicit relationships with neighbouring domains.
+- Traceable inheritance throughout the Motion Engine.
+
+Architectural domains shall not overlap in responsibility.
 
 ---
 
@@ -137,8 +168,8 @@ End of Document
 
 Document ID: PSME-ARC-001
 
-Version: 0.1 Foundation
+Version: 1.0 Foundation
 
-Status: Draft
+Status: Approved
 
 ---
