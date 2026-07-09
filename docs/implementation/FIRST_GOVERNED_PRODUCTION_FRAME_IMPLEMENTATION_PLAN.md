@@ -105,23 +105,27 @@ This plan does not implement:
 
 ## 7. First Implementation Artifact
 
-The first implementation artifact shall be:
+The first implementation artifact shall be an amendment to:
 
-`engine/production/production-frame.js`
+engine/rendering/render-pipeline.js
 
 Responsibility:
 
-Coordinate approved Story, Runtime, Execution, Rendering, Composition, and Render Target foundations into one deterministic governed production frame result.
+Extend the approved render pipeline execution result so that the existing governed rendering flow culminates in one deterministic governed production frame.
 
-This artifact must not redefine rendering behaviour.
+This amendment must not introduce a new Production subsystem, a new Production entity, or any new architectural layer.
+
+The Render Pipeline remains responsible only for coordinating approved rendering foundations. The governed production frame result is the behavioural output of the approved pipeline, not a new architectural entity.
 
 ---
 
 ## 8. Validation Requirement
 
-A matching test artifact shall be required before this milestone is considered complete:
+## 8. Validation Requirement
 
-`engine/production/production-frame.test.js`
+The existing render pipeline test artifact shall be amended:
+
+engine/rendering/render-pipeline.test.js
 
 The test shall prove:
 
