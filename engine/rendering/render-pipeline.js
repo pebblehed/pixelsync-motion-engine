@@ -122,6 +122,18 @@ export function createRenderPipeline({
 export function executeRenderPipeline(pipeline) {
   validateRenderPipeline(pipeline);
 
+  const productionFrame = Object.freeze({
+    type: "governed-production-frame",
+    frameId: pipeline.frame.frameId,
+    frameNumber: pipeline.frame.frameNumber,
+    timestamp: pipeline.frame.timestamp,
+    story: pipeline.runtime.story,
+    scene: pipeline.runtime.story.scenes[pipeline.runtime.currentSceneIndex],
+    composition: pipeline.composition,
+    target: pipeline.target,
+    status: "production-frame-created",
+  });
+
   return Object.freeze({
     runtime: pipeline.runtime,
     renderer: pipeline.renderer,
@@ -132,6 +144,7 @@ export function executeRenderPipeline(pipeline) {
     passes: pipeline.passes,
     composition: pipeline.composition,
     target: pipeline.target,
+    productionFrame,
     status: "render-pipeline-executed",
   });
 }

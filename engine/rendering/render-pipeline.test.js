@@ -201,6 +201,18 @@ test("executeRenderPipeline executes a valid governed pipeline", () => {
   assert.equal(result.passes, pipeline.passes);
   assert.equal(result.composition, pipeline.composition);
   assert.equal(result.target, pipeline.target);
+  assert.equal(result.productionFrame.type, "governed-production-frame");
+  assert.equal(result.productionFrame.status, "production-frame-created");
+  assert.equal(result.productionFrame.frameId, pipeline.frame.frameId);
+  assert.equal(result.productionFrame.frameNumber, pipeline.frame.frameNumber);
+  assert.equal(result.productionFrame.timestamp, pipeline.frame.timestamp);
+  assert.equal(result.productionFrame.story, pipeline.runtime.story);
+  assert.equal(
+    result.productionFrame.scene,
+    pipeline.runtime.story.scenes[pipeline.runtime.currentSceneIndex],
+  );
+  assert.equal(result.productionFrame.composition, pipeline.composition);
+  assert.equal(result.productionFrame.target, pipeline.target);
 });
 
 test("createRenderPipeline rejects missing required pipeline entities", () => {
@@ -275,8 +287,12 @@ test("executeRenderPipeline returns an immutable execution result", () => {
   const result = executeRenderPipeline(pipeline);
 
   assert.equal(Object.isFrozen(result), true);
+  assert.equal(Object.isFrozen(result.productionFrame), true);
   assert.throws(() => {
     result.status = "mutated";
+  }, TypeError);
+  assert.throws(() => {
+    result.productionFrame.status = "mutated";
   }, TypeError);
 });
 
