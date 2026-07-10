@@ -26,6 +26,7 @@ import { createSchedule } from "../scheduler.js";
 import {
   createRenderPipeline,
   executeRenderPipeline,
+  progressRenderPipelineFrame,
 } from "./render-pipeline.js";
 import { createRenderer } from "./renderer.js";
 import { createRenderContext } from "./render-context.js";
@@ -234,7 +235,7 @@ test("createRenderPipeline rejects missing required pipeline entities", () => {
     assert.throws(
       () => createRenderPipeline(input),
       /Render Pipeline requires/,
-      `Expected missing ${entityName} to be rejected.`,
+      "Expected missing " + entityName + " to be rejected.",
     );
   });
 });
@@ -305,4 +306,91 @@ test("executeRenderPipeline is deterministic for the same input", () => {
   assert.deepEqual(firstExecution, secondExecution);
   assert.equal(firstExecution.status, "render-pipeline-executed");
   assert.equal(secondExecution.status, "render-pipeline-executed");
+});
+
+test("progressRenderPipelineFrame returns a second governed production frame deterministically", () => {
+  const pipeline = createRenderPipeline(createValidPipelineInput());
+  const firstResult = executeRenderPipeline(pipeline);
+  const nextFrame = createRenderFrame({
+    frameId: "frame-2",
+    frameNumber: 1,
+    timestamp: 16,
+    lifecycleStage: "pending",
+    diagnostics: { source: "test" },
+    status: "ready",
+    renderer: pipeline.renderer,
+    renderContext: pipeline.context,
+    renderState: pipeline.state,
+    renderGraph: pipeline.graph,
+  });
+
+  const secondResult = progressRenderPipelineFrame(pipeline, nextFrame);
+
+  assert.equal(secondResult.status, "render-pipeline-executed");
+  assert.equal(secondResult.productionFrame.type, "governed-production-frame");
+  assert.equal(secondResult.productionFrame.status, "production-frame-created");
+  assert.equal(secondResult.productionFrame.frameNumber, 1);
+  assert.equal(secondResult.productionFrame.timestamp, nextFrame.timestamp);
+  assert.equal(
+    secondResult.productionFrame.timestamp >
+      firstResult.productionFrame.timestamp,
+    true,
+  );
+  assert.equal(secondResult.runtime, pipeline.runtime);
+  assert.equal(
+    secondResult.productionFrame.story,
+    firstResult.productionFrame.story,
+  );
+  assert.equal(
+    secondResult.productionFrame.scene,
+    firstResult.productionFrame.scene,
+  );
+  assert.equal(secondResult.productionFrame.composition, pipeline.composition);
+  assert.equal(secondResult.productionFrame.target, pipeline.target);
+  assert.equal(pipeline.frame.frameNumber, 0);
+  assert.equal(pipeline.frame.timestamp, 0);
+  assert.equal(Object.isFrozen(secondResult), true);
+  assert.equal(Object.isFrozen(secondResult.productionFrame), true);
+});
+
+test("progressRenderPipelineFrame rejects invalid frame number progression", () => {
+  const pipeline = createRenderPipeline(createValidPipelineInput());
+  const invalidNextFrame = createRenderFrame({
+    frameId: "frame-2",
+    frameNumber: 2,
+    timestamp: 16,
+    lifecycleStage: "pending",
+    diagnostics: { source: "test" },
+    status: "ready",
+    renderer: pipeline.renderer,
+    renderContext: pipeline.context,
+    renderState: pipeline.state,
+    renderGraph: pipeline.graph,
+  });
+
+  assert.throws(
+    () => progressRenderPipelineFrame(pipeline, invalidNextFrame),
+    /frameNumber must be exactly current frameNumber \+ 1/,
+  );
+});
+
+test("progressRenderPipelineFrame rejects non-increasing timestamp progression", () => {
+  const pipeline = createRenderPipeline(createValidPipelineInput());
+  const invalidNextFrame = createRenderFrame({
+    frameId: "frame-2",
+    frameNumber: 1,
+    timestamp: 0,
+    lifecycleStage: "pending",
+    diagnostics: { source: "test" },
+    status: "ready",
+    renderer: pipeline.renderer,
+    renderContext: pipeline.context,
+    renderState: pipeline.state,
+    renderGraph: pipeline.graph,
+  });
+
+  assert.throws(
+    () => progressRenderPipelineFrame(pipeline, invalidNextFrame),
+    /timestamp must be greater than current frame timestamp/,
+  );
 });

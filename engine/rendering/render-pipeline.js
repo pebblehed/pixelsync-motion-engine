@@ -148,3 +148,34 @@ export function executeRenderPipeline(pipeline) {
     status: "render-pipeline-executed",
   });
 }
+
+export function progressRenderPipelineFrame(pipeline, nextFrame) {
+  validateRenderPipeline(pipeline);
+  validateRenderFrame(nextFrame);
+
+  if (nextFrame.frameNumber !== pipeline.frame.frameNumber + 1) {
+    throw new Error(
+      "Next Render Frame frameNumber must be exactly current frameNumber + 1.",
+    );
+  }
+
+  if (nextFrame.timestamp <= pipeline.frame.timestamp) {
+    throw new Error(
+      "Next Render Frame timestamp must be greater than current frame timestamp.",
+    );
+  }
+
+  const progressedPipeline = createRenderPipeline({
+    runtime: pipeline.runtime,
+    renderer: pipeline.renderer,
+    context: pipeline.context,
+    state: pipeline.state,
+    graph: pipeline.graph,
+    frame: nextFrame,
+    passes: pipeline.passes,
+    composition: pipeline.composition,
+    target: pipeline.target,
+  });
+
+  return executeRenderPipeline(progressedPipeline);
+}
