@@ -11,7 +11,7 @@ Version 1.0 Foundation
 Status Draft
 Classification Architecture
 Owner PixelSync
-Parent PSME-STD-004
+Parent PSME-STD-006
 Last Updated 2026-07-07
 
 ---
