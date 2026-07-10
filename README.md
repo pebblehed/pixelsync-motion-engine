@@ -5,25 +5,25 @@
 | Document       | README.md               |
 | Project        | PixelSync Motion Engine |
 | Document ID    | PSME-README-001         |
-| Version        | 1.0 Foundation          |
+| Version        | 1.1 Governance Baseline |
 | Status         | Approved                |
 | Classification | Project Overview        |
 | Owner          | PixelSync               |
-| Last Updated   | 2026-07-07              |
+| Last Updated   | 2026-07-10              |
 
 ---
 
 # PixelSync Motion Engine
 
-> Engineering cinematic communication through governed systems.
+> Engineering governed visual communication through programmable production systems.
 
 ---
 
 # Mission
 
-PixelSync Motion Engine is an engineering platform for creating premium cinematic product storytelling through governed principles, reusable components, and programmable systems.
+PixelSync Motion Engine is a constitutional engineering platform for creating deterministic visual productions through governed principles, reusable production components, structured communication models, and programmable execution.
 
-The project transforms motion design into an engineering discipline through constitutional governance, reusable engineering assets, structured narrative systems, and programmable execution.
+The project transforms motion design into an engineering discipline through constitutional governance, deterministic production behaviour, reusable engineering assets, structured communication systems, and evidence-based implementation.
 
 The objective is not simply to create motion.
 
@@ -33,9 +33,9 @@ The objective is to engineer understanding.
 
 # Vision
 
-To become the engineering platform that powers consistent, high-quality cinematic communication across the entire PixelSync ecosystem.
+To become the constitutional engineering platform that powers consistent, high-quality visual communication across the entire PixelSync ecosystem.
 
-Rather than recreating launch films and presentations from scratch, Motion Engine enables productions to be engineered from governed story structures, reusable components, engineering standards, and runtime systems.
+Rather than recreating productions from scratch, the Motion Engine enables adverts, launch videos, demonstrations, tutorials, presentations, educational content, and future visual communication systems to be engineered from governed communication models, reusable production components, engineering standards, and deterministic execution.
 
 ---
 
@@ -51,6 +51,8 @@ Every scene advances the narrative.
 
 Engineering precedes implementation.
 
+Evidence precedes architectural expansion.
+
 ---
 
 # Repository Structure
@@ -60,11 +62,15 @@ docs/
     constitution/
     architecture/
     standards/
+    specifications/
+    implementation/
+    design/
+    reviews/
     changelog/
 
 engine/
 
-films/
+tests/
 
 assets/
 ```
@@ -73,16 +79,16 @@ assets/
 
 # Current Status
 
-| Property  | Value                                                                                                 |
-| --------- | ----------------------------------------------------------------------------------------------------- |
-| Phase     | Foundation                                                                                            |
-| Objective | Establish the constitutional, architectural and engineering foundations before expanding the runtime. |
+| Property  | Value                                                                                                                                                                                                                   |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Phase     | Production Behaviour Preparation                                                                                                                                                                                        |
+| Objective | Constitutional governance, execution, rendering, first governed production frame, deterministic frame progression, and repository governance baseline completed. Preparing the Production Behaviour Architecture phase. |
 
 ---
 
 # Documentation Hierarchy
 
-The Motion Engine follows the PixelSync constitutional engineering model.
+The PixelSync Motion Engine follows the PixelSync constitutional engineering model.
 
 ```text
 Constitution
@@ -91,29 +97,104 @@ Architecture
         ↓
 Engineering Standards
         ↓
+Behavioural Specifications
+        ↓
+Implementation Plans
+        ↓
+Design Artifacts (when required)
+        ↓
 Implementation
+        ↓
+Validation
+        ↓
+Reviews
         ↓
 Productions
 ```
 
-Each layer inherits from the layer above it.
+Each layer inherits from the layer above.
+
+Lower layers may extend behaviour but shall never redefine higher-level governance.
+
+---
+
+# Engineering Methodology
+
+Every capability is developed through a governed engineering lifecycle.
+
+```text
+Behavioural Specification
+        ↓
+Implementation Plan
+        ↓
+Design Constraint (when required)
+        ↓
+Implementation
+        ↓
+Validation
+        ↓
+Architectural Review
+        ↓
+Approval
+        ↓
+Stage
+        ↓
+Commit
+        ↓
+Tag (major milestones only)
+        ↓
+Clean Repository
+```
+
+Implementation evidence drives architectural evolution.
+
+New architectural entities are introduced only when existing approved architecture can no longer satisfy validated implementation requirements.
+
+---
+
+# Current Proven Capabilities
+
+The repository currently provides implementation evidence for:
+
+- Constitutional governance
+- Motion Engine domain architecture
+- Runtime foundation
+- Execution foundation
+- Rendering architecture
+- Rendering engineering standards
+- Rendering validation
+- Deterministic render pipeline
+- First governed production frame
+- Deterministic governed frame progression
+- Repository governance baseline
 
 ---
 
 # Long-Term Vision
 
-PixelSync Motion Engine will evolve into a programmable cinematic engineering platform capable of assembling launch films, demonstrations, presentations, interactive experiences, and future communication systems through governed engineering principles.
+PixelSync Motion Engine will evolve into a constitutional programmable production engine capable of transforming governed communication intent into deterministic visual productions.
 
----
+The engine is intended to support a wide range of production types, including:
+
+- Advertisements
+- Product launch videos
+- Demonstrations
+- Tutorials
+- Presentations
+- Educational content
+- Interactive communication experiences
+- Future governed visual communication systems
+
+The Motion Engine is not intended to replace traditional creative applications.
+
+Its purpose is to provide a new engineering approach to creating high-quality visual communication through constitutional governance, deterministic behaviour, and programmable production systems.
 
 ---
 
 End of Document
 
-Document ID: PSME-README-001
+**Document ID:** PSME-README-001
 
-Version: 1.0 Foundation
+**Version:** 1.1 Governance Baseline
 
-Status: Approved
-
----
+**Status:** Approved
