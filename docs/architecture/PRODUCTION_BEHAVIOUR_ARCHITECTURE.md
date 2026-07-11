@@ -86,7 +86,7 @@ It operates upon governed entities within that hierarchy.
 
 Production behaviour does not render output.
 
-It produces deterministic state that the rendering architecture may consume.
+Behaviour evaluation produces deterministic governed production state that the rendering architecture may consume.
 
 Production behaviour does not originate communication intent.
 
@@ -96,15 +96,15 @@ It expresses communication intent through governed change.
 
 # 5. Definition of Production Behaviour
 
-Production behaviour is the governed specification of how an approved production entity changes, responds, persists, or relates over governed production time.
+Production behaviour is the governed specification of how an approved Component changes over governed production time in order to express approved communication intent.
 
 A production behaviour must:
 
 1. Originate from approved communication intent.
-2. Apply to an identifiable governed production entity.
+2. Be owned by and apply to an identifiable governed Component.
 3. Express a defined production responsibility.
 4. Operate within an approved temporal context.
-5. Produce deterministic state.
+5. Contribute to deterministic governed production state through behaviour evaluation.
 6. Remain traceable to its originating intent.
 7. Remain subordinate to the production hierarchy.
 8. Be validatable before execution.
@@ -161,10 +161,9 @@ Production behaviour has limited and explicit authority.
 
 A governed behaviour may:
 
-- Describe an approved change associated with a governed production entity.
+- Describe an approved change associated with its owning governed Component.
 - Participate in deterministic evaluation.
-- Produce governed state within its approved scope.
-- Reference approved temporal and production context.
+- Contribute to the deterministic governed production state of its owning Component within its approved authority.
 - Contribute evidence explaining why a resulting state exists.
 
 A governed behaviour may not:
@@ -186,9 +185,9 @@ Behaviour authority must be declared before evaluation and must remain stable du
 
 # 9. Intent-to-Behaviour Transformation
 
-The transformation from communication intent to production behaviour must be explicit.
+A governed behaviour definition is created under approved human governance to express one or more aspects of the approved communication intent through deterministic production change.
 
-The architecture recognises the following conceptual stages:
+The architecture does not prescribe how this definition is authored. It may be created manually or through future governed tooling, provided human approval remains constitutionally authoritative.
 
 ## 9.1 Intent Establishment
 
@@ -196,11 +195,11 @@ Human-approved communication intent defines the required meaning and production 
 
 ## 9.2 Intent Association
 
-The approved intent is associated with one or more governed entities in the production hierarchy.
+The approved communication intent is associated with one or more governed Components through the established production hierarchy.
 
-## 9.3 Behaviour Derivation
+## 9.3 Behaviour Definition
 
-A behaviour definition is derived to express an approved aspect of the intent through observable or stateful production change.
+A governed behaviour definition is created under approved human governance to express one or more aspects of the approved communication intent through deterministic production change.
 
 ## 9.4 Behaviour Validation
 
@@ -238,7 +237,7 @@ Given the same:
 - Evaluation context
 - Approved dependencies
 
-the behaviour must produce the same resulting governed state.
+evaluation of the behaviour definition must produce the same resulting governed production state.
 
 Determinism prohibits reliance upon:
 
@@ -301,20 +300,24 @@ The rendering pipeline remains responsible for transforming governed render stat
 
 Production behaviour must respect the established production hierarchy:
 
-**Production**  
-→ **Story**  
-→ **Scene**  
-→ **Sequence**  
-→ **Component**  
+**Production**
+→ **Story**
+→ **Scene**
+→ **Sequence**
+→ **Component**
 → **Behaviour**
 
-Behaviour remains subordinate to the entity that owns or references it.
+Production behaviour remains the lowest-level entity in the established production hierarchy and is always owned by a Component.
 
-A behaviour must not bypass the hierarchy to operate upon undeclared or unrelated entities.
+A behaviour may affect only the governed state within the explicit authority of its owning Component.
 
-The exact ownership, attachment, targeting, and relationship rules for behaviour require a future Production Behaviour Domain Model.
+A behaviour must not attach directly to a Production, Story, Scene, or Sequence.
 
-This architecture establishes the boundary but does not define the data model.
+Higher-level production entities may establish intent and context, but behaviour expresses that intent only through an authorised Component.
+
+The exact ownership, targeting, relationship, and state-authority rules for behaviour require a future Production Behaviour Domain Model.
+
+This architecture establishes the ownership boundary but does not define the data model.
 
 ---
 
@@ -390,7 +393,7 @@ Every governed behaviour must be traceable through the complete production chain
 At minimum, the architecture requires traceability between:
 
 **Communication Intent**  
-→ **Production Entity**  
+→ **Component**  
 → **Behaviour Responsibility**  
 → **Behaviour Definition**  
 → **Evaluation Context**  
@@ -528,7 +531,7 @@ The following invariants govern all future production behaviour work:
 3. Every behaviour has one clear responsibility.
 4. Every behaviour has explicit and limited authority.
 5. Every behaviour is traceable to approved intent.
-6. Every behaviour targets governed production entities.
+6. Every behaviour targets its owning governed Component.
 7. Behaviour operates only against governed time and context.
 8. Equivalent governed inputs produce equivalent governed state.
 9. Behaviour does not directly render output.
