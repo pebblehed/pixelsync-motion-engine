@@ -10,6 +10,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { createBehaviour } from "./behaviour.js";
+import { createBehaviourOutcome } from "./behaviour-outcome.js";
 import { validateBehaviour } from "./behaviour-validator.js";
 
 function createCanonicalBehaviourInput() {
@@ -71,6 +72,31 @@ function createCanonicalBehaviourInput() {
 
 function createCanonicalBehaviour() {
   return createBehaviour(createCanonicalBehaviourInput());
+}
+
+function createCanonicalBehaviourOutcomeInput() {
+  const behaviour = createCanonicalBehaviour();
+
+  return {
+    behaviour,
+    behaviourIdentity: {
+      id: behaviour.identity.id,
+      scope: behaviour.identity.scope,
+    },
+    intent: {
+      objective: behaviour.intent.objective,
+      responsibility: behaviour.intent.responsibility,
+    },
+    evaluation: {
+      evaluationId: "evaluation-primary",
+      phase: "resolved",
+      source: "governed-behaviour-evaluation",
+    },
+    result: {
+      status: "resolved",
+      summary: "Governed behaviour outcome resolved deterministically.",
+    },
+  };
 }
 
 function clone(value) {
@@ -586,4 +612,129 @@ test("validateBehaviour determinism demonstrates independence from time, randomn
   for (let run = 1; run < outcomes.length; run += 1) {
     assert.deepEqual(outcomes[0], outcomes[run]);
   }
+});
+
+test("createBehaviourOutcome returns canonical outcome shape with explicit governed members", () => {
+  const outcome = createBehaviourOutcome(
+    createCanonicalBehaviourOutcomeInput(),
+  );
+
+  assert.equal(outcome.type, "behaviour-outcome");
+  assert.equal(typeof outcome.behaviour, "object");
+  assert.equal(typeof outcome.behaviourIdentity, "object");
+  assert.equal(typeof outcome.intent, "object");
+  assert.equal(typeof outcome.evaluation, "object");
+  assert.equal(typeof outcome.result, "object");
+});
+
+test("createBehaviourOutcome preserves supplied governed values without inference, repair, mutation, or defaults", () => {
+  const input = createCanonicalBehaviourOutcomeInput();
+  const inputSnapshot = clone(input);
+  const outcome = createBehaviourOutcome(input);
+
+  assert.deepEqual(input, inputSnapshot);
+  assert.deepEqual(outcome.behaviour, input.behaviour);
+  assert.deepEqual(outcome.behaviourIdentity, input.behaviourIdentity);
+  assert.deepEqual(outcome.intent, input.intent);
+  assert.deepEqual(outcome.evaluation, input.evaluation);
+  assert.deepEqual(outcome.result, input.result);
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "rendering"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "renderer"),
+    false,
+  );
+});
+
+test("createBehaviourOutcome recursively freezes outcome and governed members", () => {
+  const outcome = createBehaviourOutcome(
+    createCanonicalBehaviourOutcomeInput(),
+  );
+
+  assertFrozen(outcome, "Outcome must be frozen.");
+  assertFrozen(outcome.behaviour, "Outcome.behaviour must be frozen.");
+  assertFrozen(
+    outcome.behaviourIdentity,
+    "Outcome.behaviourIdentity must be frozen.",
+  );
+  assertFrozen(outcome.intent, "Outcome.intent must be frozen.");
+  assertFrozen(outcome.evaluation, "Outcome.evaluation must be frozen.");
+  assertFrozen(outcome.result, "Outcome.result must be frozen.");
+});
+
+test("createBehaviourOutcome preserves explicit traceability to Behaviour, identity, intent, and evaluation", () => {
+  const input = createCanonicalBehaviourOutcomeInput();
+  const outcome = createBehaviourOutcome(input);
+
+  assert.equal(outcome.behaviour.type, "behaviour");
+  assert.equal(outcome.behaviourIdentity.id, input.behaviour.identity.id);
+  assert.equal(outcome.behaviourIdentity.scope, input.behaviour.identity.scope);
+  assert.equal(outcome.intent.objective, input.behaviour.intent.objective);
+  assert.equal(
+    outcome.intent.responsibility,
+    input.behaviour.intent.responsibility,
+  );
+  assert.equal(outcome.evaluation.evaluationId, "evaluation-primary");
+});
+
+test("createBehaviourOutcome is deterministic for equivalent supplied inputs", () => {
+  const firstOutcome = createBehaviourOutcome(
+    createCanonicalBehaviourOutcomeInput(),
+  );
+  const secondOutcome = createBehaviourOutcome(
+    createCanonicalBehaviourOutcomeInput(),
+  );
+
+  assert.deepEqual(firstOutcome, secondOutcome);
+});
+
+test("createBehaviourOutcome repeated construction remains equivalent and introduces no hidden state", () => {
+  const input = createCanonicalBehaviourOutcomeInput();
+  const outcomes = [];
+
+  for (let run = 0; run < 4; run += 1) {
+    outcomes.push(createBehaviourOutcome(input));
+  }
+
+  for (let run = 1; run < outcomes.length; run += 1) {
+    assert.deepEqual(outcomes[0], outcomes[run]);
+  }
+});
+
+test("createBehaviourOutcome representation does not introduce prohibited concern members", () => {
+  const outcome = createBehaviourOutcome(
+    createCanonicalBehaviourOutcomeInput(),
+  );
+
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "rendering"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "renderer"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "runtimeStateMutation"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "productionStateMutation"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "scheduling"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "interpolation"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "animation"),
+    false,
+  );
+  assert.equal(Object.prototype.hasOwnProperty.call(outcome, "browser"), false);
 });
