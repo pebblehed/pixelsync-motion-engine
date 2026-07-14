@@ -8,7 +8,7 @@
 | Project        | PixelSync Motion Engine                 |
 | Document ID    | PSME-ARC-006                            |
 | Version        | 1.0 Foundation                          |
-| Status         | Draft                                   |
+| Status         | Approved                                |
 | Classification | Architecture                            |
 | Owner          | PixelSync                               |
 | Parent         | PSME-ARC-001 Motion Engine Architecture |
