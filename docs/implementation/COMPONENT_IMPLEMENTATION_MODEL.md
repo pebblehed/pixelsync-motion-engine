@@ -6,7 +6,7 @@
 | Project        | PixelSync Motion Engine                     |
 | Document ID    | PSME-IMP-002                                |
 | Version        | 1.0 Foundation                              |
-| Status         | Approve                                     |
+| Status         | Approved                                    |
 | Classification | Implementation Model                        |
 | Owner          | PixelSync                                   |
 | Parent         | PSME-STD-007 Component Engineering Standard |
