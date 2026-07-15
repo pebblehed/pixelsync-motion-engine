@@ -829,9 +829,21 @@ function describeBehaviour(behaviour) {
     };
   }
 
+  const identity = isPlainObject(behaviour.identity)
+    ? {
+        present: true,
+        id: isNonEmptyString(behaviour.identity.id)
+          ? behaviour.identity.id
+          : null,
+        scope: isNonEmptyString(behaviour.identity.scope)
+          ? behaviour.identity.scope
+          : null,
+      }
+    : null;
+
   return {
     type: isNonEmptyString(behaviour.type) ? behaviour.type : null,
-    identity: isPlainObject(behaviour.identity) ? "present" : null,
+    identity,
     owner: isPlainObject(behaviour.owner) ? "present" : null,
   };
 }

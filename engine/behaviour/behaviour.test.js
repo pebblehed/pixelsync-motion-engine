@@ -12,6 +12,7 @@ import assert from "node:assert/strict";
 import { createBehaviour } from "./behaviour.js";
 import { createBehaviourOutcome } from "./behaviour-outcome.js";
 import { validateBehaviour } from "./behaviour-validator.js";
+import { evaluateBehaviour } from "./behaviour-evaluator.js";
 
 function createCanonicalBehaviourInput() {
   return {
@@ -96,6 +97,16 @@ function createCanonicalBehaviourOutcomeInput() {
       status: "resolved",
       summary: "Governed behaviour outcome resolved deterministically.",
     },
+  };
+}
+
+function createCanonicalEvaluatorInput() {
+  const behaviour = createCanonicalBehaviour();
+  const validationOutcome = validateBehaviour(behaviour);
+
+  return {
+    behaviour,
+    validationOutcome,
   };
 }
 
@@ -714,6 +725,349 @@ test("createBehaviourOutcome representation does not introduce prohibited concer
   );
   assert.equal(
     Object.prototype.hasOwnProperty.call(outcome, "renderer"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "runtimeStateMutation"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "productionStateMutation"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "scheduling"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "interpolation"),
+    false,
+  );
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "animation"),
+    false,
+  );
+  assert.equal(Object.prototype.hasOwnProperty.call(outcome, "browser"), false);
+});
+
+test("validateBehaviour valid outcome preserves behaviour identity traceability evidence", () => {
+  const behaviour = createCanonicalBehaviour();
+  const validationOutcome = validateBehaviour(behaviour);
+
+  assert.equal(validationOutcome.valid, true);
+  assert.equal(typeof validationOutcome.behaviour.identity, "object");
+  assert.equal(validationOutcome.behaviour.identity.id, behaviour.identity.id);
+  assert.equal(
+    validationOutcome.behaviour.identity.scope,
+    behaviour.identity.scope,
+  );
+});
+
+test("evaluateBehaviour with matching valid evidence produces governed behaviour outcome", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+  const outcome = evaluateBehaviour({ behaviour, validationOutcome });
+
+  assert.equal(outcome.type, "behaviour-outcome");
+  assert.equal(outcome.behaviour, behaviour);
+  assert.deepEqual(outcome.behaviourIdentity, {
+    id: behaviour.identity.id,
+    scope: behaviour.identity.scope,
+  });
+  assert.deepEqual(outcome.intent, {
+    objective: behaviour.intent.objective,
+    responsibility: behaviour.intent.responsibility,
+  });
+  assert.deepEqual(outcome.evaluation, {
+    behaviourId: behaviour.identity.id,
+    behaviourScope: behaviour.identity.scope,
+  });
+  assert.deepEqual(outcome.result, {
+    objective: behaviour.intent.objective,
+    responsibility: behaviour.intent.responsibility,
+  });
+});
+
+test("evaluateBehaviour rejects validation evidence with mismatched behaviour id", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+  const mismatchedValidationOutcome = clone(validationOutcome);
+  mismatchedValidationOutcome.behaviour.identity.id = "behaviour-other";
+
+  assert.throws(
+    () =>
+      evaluateBehaviour({
+        behaviour,
+        validationOutcome: mismatchedValidationOutcome,
+      }),
+    /id does not match/i,
+  );
+});
+
+test("evaluateBehaviour rejects validation evidence with mismatched behaviour scope", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+  const mismatchedValidationOutcome = clone(validationOutcome);
+  mismatchedValidationOutcome.behaviour.identity.scope = "component-other";
+
+  assert.throws(
+    () =>
+      evaluateBehaviour({
+        behaviour,
+        validationOutcome: mismatchedValidationOutcome,
+      }),
+    /scope does not match/i,
+  );
+});
+
+test("evaluateBehaviour rejects invalid and malformed inputs deterministically", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+
+  const missingBehaviour = {
+    validationOutcome,
+  };
+
+  const malformedBehaviour = {
+    behaviour: [],
+    validationOutcome,
+  };
+
+  const missingValidationOutcome = {
+    behaviour,
+  };
+
+  const malformedValidationOutcome = {
+    behaviour,
+    validationOutcome: [],
+  };
+
+  const wrongValidationOutcomeType = {
+    behaviour,
+    validationOutcome: {
+      ...clone(validationOutcome),
+      type: "other-validation-outcome",
+    },
+  };
+
+  const validationOutcomeNotValid = {
+    behaviour,
+    validationOutcome: {
+      ...clone(validationOutcome),
+      valid: false,
+    },
+  };
+
+  const validationOutcomeWrongStatus = {
+    behaviour,
+    validationOutcome: {
+      ...clone(validationOutcome),
+      status: "invalid",
+    },
+  };
+
+  const missingBehaviourIdentity = {
+    behaviour: (() => {
+      const value = clone(behaviour);
+      delete value.identity;
+      return value;
+    })(),
+    validationOutcome,
+  };
+
+  const missingBehaviourIdentityId = {
+    behaviour: (() => {
+      const value = clone(behaviour);
+      delete value.identity.id;
+      return value;
+    })(),
+    validationOutcome,
+  };
+
+  const missingBehaviourIdentityScope = {
+    behaviour: (() => {
+      const value = clone(behaviour);
+      delete value.identity.scope;
+      return value;
+    })(),
+    validationOutcome,
+  };
+
+  const missingValidationBehaviourTraceability = {
+    behaviour,
+    validationOutcome: (() => {
+      const value = clone(validationOutcome);
+      delete value.behaviour;
+      return value;
+    })(),
+  };
+
+  const missingValidationIdentityTraceability = {
+    behaviour,
+    validationOutcome: (() => {
+      const value = clone(validationOutcome);
+      delete value.behaviour.identity;
+      return value;
+    })(),
+  };
+
+  const missingValidationIdentityId = {
+    behaviour,
+    validationOutcome: (() => {
+      const value = clone(validationOutcome);
+      delete value.behaviour.identity.id;
+      return value;
+    })(),
+  };
+
+  const missingValidationIdentityScope = {
+    behaviour,
+    validationOutcome: (() => {
+      const value = clone(validationOutcome);
+      delete value.behaviour.identity.scope;
+      return value;
+    })(),
+  };
+
+  const cases = [
+    {
+      name: "missing behaviour",
+      input: missingBehaviour,
+      errorPattern: /behaviour input is required/i,
+    },
+    {
+      name: "malformed behaviour input",
+      input: malformedBehaviour,
+      errorPattern: /behaviour input is required/i,
+    },
+    {
+      name: "missing validation outcome",
+      input: missingValidationOutcome,
+      errorPattern: /validation evidence is required/i,
+    },
+    {
+      name: "malformed validation outcome",
+      input: malformedValidationOutcome,
+      errorPattern: /validation evidence is required/i,
+    },
+    {
+      name: "wrong validation outcome type",
+      input: wrongValidationOutcomeType,
+      errorPattern: /validation evidence type/i,
+    },
+    {
+      name: "validation outcome valid flag false",
+      input: validationOutcomeNotValid,
+      errorPattern: /must be constitutionally valid/i,
+    },
+    {
+      name: "validation outcome status invalid",
+      input: validationOutcomeWrongStatus,
+      errorPattern: /must be constitutionally valid/i,
+    },
+    {
+      name: "missing behaviour identity",
+      input: missingBehaviourIdentity,
+      errorPattern: /behaviour identity evidence is required/i,
+    },
+    {
+      name: "missing behaviour identity id",
+      input: missingBehaviourIdentityId,
+      errorPattern: /behaviour identity id evidence is required/i,
+    },
+    {
+      name: "missing behaviour identity scope",
+      input: missingBehaviourIdentityScope,
+      errorPattern: /behaviour identity scope evidence is required/i,
+    },
+    {
+      name: "missing validation behaviour traceability",
+      input: missingValidationBehaviourTraceability,
+      errorPattern: /validation behaviour evidence is required/i,
+    },
+    {
+      name: "missing validation identity traceability",
+      input: missingValidationIdentityTraceability,
+      errorPattern: /validation identity evidence is required/i,
+    },
+    {
+      name: "missing validation identity id",
+      input: missingValidationIdentityId,
+      errorPattern: /validation identity id evidence is required/i,
+    },
+    {
+      name: "missing validation identity scope",
+      input: missingValidationIdentityScope,
+      errorPattern: /validation identity scope evidence is required/i,
+    },
+  ];
+
+  for (let index = 0; index < cases.length; index += 1) {
+    assert.throws(
+      () => evaluateBehaviour(cases[index].input),
+      cases[index].errorPattern,
+      cases[index].name,
+    );
+  }
+});
+
+test("evaluateBehaviour is deterministic across repeated evaluation with equivalent inputs", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+
+  const firstOutcome = evaluateBehaviour({ behaviour, validationOutcome });
+  const secondOutcome = evaluateBehaviour({ behaviour, validationOutcome });
+  const thirdOutcome = evaluateBehaviour({ behaviour, validationOutcome });
+
+  assert.deepEqual(firstOutcome, secondOutcome);
+  assert.deepEqual(secondOutcome, thirdOutcome);
+});
+
+test("evaluateBehaviour is deterministic for equivalent separately constructed behaviours and validation outcomes", () => {
+  const firstBehaviour = createBehaviour(createCanonicalBehaviourInput());
+  const secondBehaviour = createBehaviour(createCanonicalBehaviourInput());
+
+  const firstValidationOutcome = validateBehaviour(firstBehaviour);
+  const secondValidationOutcome = validateBehaviour(secondBehaviour);
+
+  const firstOutcome = evaluateBehaviour({
+    behaviour: firstBehaviour,
+    validationOutcome: firstValidationOutcome,
+  });
+  const secondOutcome = evaluateBehaviour({
+    behaviour: secondBehaviour,
+    validationOutcome: secondValidationOutcome,
+  });
+
+  assert.deepEqual(firstOutcome, secondOutcome);
+});
+
+test("evaluateBehaviour does not mutate behaviour or validation outcome", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+  const behaviourSnapshot = clone(behaviour);
+  const validationOutcomeSnapshot = clone(validationOutcome);
+
+  evaluateBehaviour({ behaviour, validationOutcome });
+
+  assert.deepEqual(behaviour, behaviourSnapshot);
+  assert.deepEqual(validationOutcome, validationOutcomeSnapshot);
+});
+
+test("evaluateBehaviour produces recursively immutable behaviour outcome contract", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+  const outcome = evaluateBehaviour({ behaviour, validationOutcome });
+
+  assertFrozen(outcome, "Outcome must be frozen.");
+  assertFrozen(
+    outcome.behaviourIdentity,
+    "Outcome.behaviourIdentity must be frozen.",
+  );
+  assertFrozen(outcome.intent, "Outcome.intent must be frozen.");
+  assertFrozen(outcome.evaluation, "Outcome.evaluation must be frozen.");
+  assertFrozen(outcome.result, "Outcome.result must be frozen.");
+});
+
+test("evaluateBehaviour outcome representation does not introduce prohibited concern members", () => {
+  const { behaviour, validationOutcome } = createCanonicalEvaluatorInput();
+  const outcome = evaluateBehaviour({ behaviour, validationOutcome });
+
+  assert.equal(
+    Object.prototype.hasOwnProperty.call(outcome, "rendering"),
     false,
   );
   assert.equal(
